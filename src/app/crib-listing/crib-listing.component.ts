@@ -2,6 +2,7 @@ import { Component , OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'; 
 import { CribsService} from '../services/cribs.service';
+import {UtilService} from '../services/util.service';
 @Component({
   selector: 'app-crib-listing',
   templateUrl: './crib-listing.component.html',
@@ -10,7 +11,10 @@ import { CribsService} from '../services/cribs.service';
 export class CribListingComponent implements OnInit{
   cribs: Array<any>;
   error: string;
-  constructor(private http: HttpClient,private cribsService: CribsService){}
+  sortFields: Array<string>=['address','area','bedrooms','bathrooms','price','type'];
+  sortField: string = 'price';
+  sortDirection: string='asc';
+  constructor(private http: HttpClient,private cribsService: CribsService, public utilService: UtilService){}
 
   ngOnInit(){
     /*this.http.get<any>('assets/data/cribs.json').
